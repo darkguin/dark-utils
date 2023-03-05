@@ -3,8 +3,6 @@ name = "dark-utils"
 version = "0.1.0"
 description = ""
 authors = ["pavelhardzei <pavelgordei11@gmail.com>"]
-readme = "README.md"
-packages = [{include = "dark_utils"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
