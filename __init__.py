@@ -1,1 +1,1 @@
-import sqlalchemy_utils  # noqa
+from sqlalchemy_utils import *  # noqa
