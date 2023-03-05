@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["pavelhardzei <pavelgordei11@gmail.com>"]
 packages = [
-    { include = "sqlalchemy_utils" }
+    { include = "dark_utils" }
 ]
 
 [tool.poetry.dependencies]
