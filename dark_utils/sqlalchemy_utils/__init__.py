@@ -1,1 +1,1 @@
-from .generic import generic_relationship  # noqa
+from .generic import generic_relationship, load_relationship  # noqa
