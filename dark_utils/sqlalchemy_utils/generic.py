@@ -1,6 +1,7 @@
 from sqlalchemy import and_
 from sqlalchemy.orm import backref, foreign, relationship, remote
-from sqlalchemy_utils.utils import get_basename_for_generic_relationship
+
+from .utils import get_basename_for_generic_relationship
 
 
 class generic_relationship:
