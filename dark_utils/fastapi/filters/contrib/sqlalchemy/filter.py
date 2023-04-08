@@ -53,7 +53,7 @@ class Filter(BaseFilterModel):
                 if field_name == self.Constants.search_field_name and hasattr(self.Constants, 'search_model_fields'):
 
                     def search_filter(field):
-                        return getattr(self.Constants.model, field).ilike('%' + value + '%')
+                        return getattr(self.Constants.model, field).ilike(f'%{value}%')
 
                     query = query.filter(or_(*list(map(search_filter, self.Constants.search_model_fields))))
                 else:
