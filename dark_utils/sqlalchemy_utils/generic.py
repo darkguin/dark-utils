@@ -97,3 +97,20 @@ def attach_relationship(
         )
 
         setattr(source_class, name, object_relationship)
+
+
+def attach_relationships(
+    source_class,
+    target_classes: list,
+    object_type_fieldname: str = 'object_type',
+    object_id_fieldname: str = 'object_id',
+    object_fieldname: str = 'object'
+):
+    for target_class in target_classes:
+        attach_relationship(
+            source_class,
+            target_class,
+            object_type_fieldname,
+            object_id_fieldname,
+            object_fieldname
+        )
