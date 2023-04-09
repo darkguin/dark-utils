@@ -66,14 +66,15 @@ class Filter(BaseFilterModel):
         if not self.ordering_values:
             return query
 
-        for field_name in self.ordering_values:
-            direction = Filter.Direction.asc
-            if field_name.startswith('-'):
-                direction = Filter.Direction.desc
-            field_name = field_name.replace('-', '').replace('+', '')
+        for model, ordering_fields in self.ordering_values:
+            for field_name in ordering_fields:
+                direction = Filter.Direction.asc
+                if field_name.startswith('-'):
+                    direction = Filter.Direction.desc
+                field_name = field_name.replace('-', '').replace('+', '')
 
-            order_by_field = getattr(self.Constants.model, field_name)
+                order_by_field = getattr(model, field_name)
 
-            query = query.order_by(getattr(order_by_field, direction)())
+                query = query.order_by(getattr(order_by_field, direction)())
 
         return query
