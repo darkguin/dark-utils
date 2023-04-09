@@ -34,10 +34,9 @@ class BaseFilterModel(BaseModel):
 
     @property
     def ordering_values(self):
-        try:
+        if hasattr(self, self.Constants.ordering_field_name):
             return getattr(self, self.Constants.ordering_field_name)
-        except AttributeError:
-            raise AttributeError(f'Ordering field {self.Constants.ordering_field_name} is not defined')
+        return []
 
     @validator('*', pre=True)
     def split_str(cls, value, field):
