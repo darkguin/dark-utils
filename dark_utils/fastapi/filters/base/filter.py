@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, deque
 from collections.abc import Iterable
 from copy import deepcopy
 from typing import Any, Dict, List, Optional, Tuple, Type, Union
@@ -33,11 +33,18 @@ class BaseFilterModel(BaseModel):
         ...
 
     @property
-    def ordering_values(self):
-        try:
-            return getattr(self, self.Constants.ordering_field_name)
-        except AttributeError:
-            raise AttributeError(f'Ordering field {self.Constants.ordering_field_name} is not defined')
+    def ordering_values(self) -> Iterable[Tuple[Type, list[str]]]:
+        ordering_values = deque()
+        fields = self.dict(exclude_none=True)
+
+        for field_name, value in fields.items():
+            field_value = getattr(self, field_name)
+            if isinstance(field_value, BaseFilterModel):
+                ordering_values.extendleft(field_value.ordering_values)
+            elif field_name == self.Constants.ordering_field_name:
+                ordering_values.appendleft((self.Constants.model, value))
+
+        return ordering_values
 
     @validator('*', pre=True)
     def split_str(cls, value, field):
